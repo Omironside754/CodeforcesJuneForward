@@ -18,22 +18,11 @@ int32_t main(){
         nn = nn - nhilena ;
         int pos = 0 ; 
         int neg = 0 ; 
-        int pos_index = n;
-        int neg_index = 1;
-        int i =1;
-        while(i<=pn)
-        {
-            pos += pos_index;
-            pos_index--;
-            i++;
-        }
-        i = 1;
-        while(i<=nn)
-        {
-            neg += neg_index;
-            neg_index++;
-            i++;
-        }
+        
+        pos += (n*(n+1))/2 - ((n-pn)*(n-pn+1))/2 ; 
+        neg += nn*(nn+1)/2;
+        
+        
 
         cout<<(pos - neg)<<endl;
     }
