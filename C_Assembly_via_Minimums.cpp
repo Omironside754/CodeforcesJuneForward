@@ -18,6 +18,36 @@ while(t--)
 {
     int n;  
     cin>>n;  
+    vi a(n);
+    int bn = (n*(n-1))/2;
+    vi  b(bn);
+    map<int,int>mp; 
+    forn( i , 0 , bn ) 
+    {
+        cin>>b[i];
+        mp[b[i]]++;
+    }
+    forn( i , 0 , n-1)
+    {
+        if (!mp.empty() && mp.begin()->second >= n - 1 - i)
+        {
+            a[i] = mp.begin()->first; 
+            mp.begin()->second -= n - 1 - i;
+            if(mp.begin()->second == 0)
+            {
+                mp.erase(mp.begin());
+            }
+        }
+
+    }
+    a[n-1] = a[n-2];
+   forn(i , 0 ,n)
+   {
+    cout<<a[i]<<" ";
+   }
+    
+    cout<<endl;
+
 }
  return 0;
  }
