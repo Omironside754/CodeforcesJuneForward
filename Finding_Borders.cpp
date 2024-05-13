@@ -22,7 +22,8 @@ struct Hashing {
     vi powerOfP;
     vi inversePowerOfP;
 
-    Hashing(string queryString) {
+    Hashing(string queryString)
+     {
         s = queryString;
         n = s.size();
         hashPrefix.resize(n);
@@ -32,48 +33,55 @@ struct Hashing {
         calHashPrefix();
     }
 
-    void calPowerAndInverseOfp() {
+    void calPowerAndInverseOfp()
+     {
         ll currentPower = 1;
         for (int i = 0; i < n; i++) {
             powerOfP[i] = currentPower;
             currentPower = (currentPower * p) % m;
         }
+        // still ye part meko smjh nhi aya 
         inversePowerOfP[n - 1] = mminvprime(powerOfP[n - 1], m);
         for (int i = n - 2; i >= 0; i--) {
             inversePowerOfP[i] = (inversePowerOfP[i + 1] * p) % m;
         }
     }
 
-    void calHashPrefix() {
+    void calHashPrefix()
+    {
         ll hashSoFar = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) 
+        {
             hashSoFar = (hashSoFar + (s[i] - 'a' + 1) * powerOfP[i]) % m;
             hashPrefix[i] = hashSoFar;
         }
     }
 
-    ll substringHash(int l, int r) {
+    ll substringHash(int l, int r)
+    {
         ll val1 = hashPrefix[r];
         ll val2 = l > 0 ? hashPrefix[l - 1] : 0LL;
         return ((val1 - val2 + m) * inversePowerOfP[l]) % m;
     }
-    ll mminvprime(ll a, ll m) {
-    ll m0 = m, t, q;
-    ll x0 = 0, x1 = 1;
-    if (m == 1)
-        return 0;
-    while (a > 1) {
-        q = a / m;
-        t = m;
-        m = a % m, a = t;
-        t = x0;
-        x0 = x1 - q * x0;
-        x1 = t;
+    ll mminvprime(ll a, ll m) 
+    {
+        ll m0 = m, t, q;
+        ll x0 = 0, x1 = 1;
+        if (m == 1)
+            return 0;
+        while (a > 1) 
+        {
+            q = a / m;
+            t = m;
+            m = a % m, a = t;
+            t = x0;
+            x0 = x1 - q * x0;
+            x1 = t;
+        }
+        if (x1 < 0)
+            x1 += m0;
+        return x1;
     }
-    if (x1 < 0)
-        x1 += m0;
-    return x1;
-}
 
 };
 int32_t main(){
@@ -82,7 +90,15 @@ ios::sync_with_stdio(false); cin.tie(0);
      string a; 
      cin>>a;
      int n = a.size() ; 
-     
+     Hashing h1 = Hashing(a);
+     for(int i = 0 ;i<n-1 ; i++)
+     {
+        if(h1.substringHash(0,i) == h1.substringHash(n-1-i , n-1))
+        {
+            cout<<i+1<<" ";
+        }
+     }
+     cout<<endl;
 
  return 0;
  }
