@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -11,27 +10,31 @@ using namespace std;
 #define vs vector<string>
 #define vll vector<long long>
 #define ump unordered_map 
-
 int32_t main(){
 ios::sync_with_stdio(false); cin.tie(0);
 
-    int n ,  x ; 
-    cin>>n>>x ; 
-    int mod = 1e9+7 ; 
+    int n;  
+    cin>>n;  
     vi a(n); 
-    forn(i , 0 , n)cin>>a[i];
-    vi dp(x+1 , 0); 
-    dp[0] = 1 ; 
-    for(int i= 1 ; i<=x ; i++)
+    forn(i,0,n)cin>>a[i]; 
+    vi dp;
+    dp.pb(a[0]);
+
+   //  cout<<dp[0]<<" ";
+    for(int i = 1 ; i<n ;i++)
     {
-        for(int j = 0 ; j<n ; j++)
+        if(a[i]>dp.back())
         {
-            if(a[j] <= i )
-            {
-                dp[i] = (dp[i] + dp[i - a[j]])%mod;  
-            }
+            dp.pb(a[i]);
         }
+        else
+        {
+            int id = lower_bound(all(dp) , a[i]) -dp.begin();
+            dp[id] = a[i] ; 
+        }
+      //  cout<<dp[i]<<" ";
     }
-    cout<<dp[x] <<endl;
+   // cout<<endl;
+    cout<< dp.size() <<endl;;
  return 0;
  }
