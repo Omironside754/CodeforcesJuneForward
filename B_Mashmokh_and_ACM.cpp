@@ -37,7 +37,7 @@ ios::sync_with_stdio(false); cin.tie(0);
     //    }
     vector<vector<int>>dp(n+1 ,  vector<int>(k+1 ,0));
     //base case 
-    // phle place k liye sbka sequnece kki value to 1 hi hogi 
+    // phle place k liye sbka sequnece ki value to 1 hi hogi 
                 for(int i = 1 ; i<=n ; i++)
                 {
                     dp[i][1] = 1 ; 
@@ -52,7 +52,7 @@ ios::sync_with_stdio(false); cin.tie(0);
     {
         for(int j = 2 ; j<=k  ; j++)
         {
-            int sum = 0 ; 
+             int sum = 0 ; 
              for(int c = 0  ; c < div[i].size() ; c++)
              {
                     sum  = (sum + dp[div[i][c]][j-1])%mod;
